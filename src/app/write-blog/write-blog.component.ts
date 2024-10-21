@@ -21,7 +21,7 @@ export class WriteBlogComponent implements OnInit {
     loading: false,
     items: []
   };
-  
+
   blog: WriteBlog = {
     sub: null,
     error: null,
@@ -36,6 +36,8 @@ export class WriteBlogComponent implements OnInit {
 
   image;
 
+  addCategoryName: string = '';
+
   constructor(
     private _authService: AuthService,
     private _categorySerice: CategoryService,
@@ -46,6 +48,12 @@ export class WriteBlogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
+  }
+
+  addCategory() {
+    this._categorySerice.addCategoryList(this.addCategoryName).subscribe(res => {
+      console.log(res);
+    });
   }
 
   saveBlog() {
@@ -60,16 +68,16 @@ export class WriteBlogComponent implements OnInit {
     if( this.image ) {
       formData.append('img', this.image);
     }
-    
+
     this.blog.sub = this._blogService.writeBlog(formData)
     .subscribe((res:any) => {
 
       this._router.navigate(['/blog', res._id])
       this.blog.loading = false;
       this.blog.sub.unsubscribe();
-      
+
     }, err => {
-      
+
       this.blog.error = err;
       this.blog.loading = false;
       this.blog.sub.unsubscribe();
@@ -80,10 +88,10 @@ export class WriteBlogComponent implements OnInit {
   getCategories() {
     this.categoryList.loading = true;
     this.categoryList.error = null;
-    
+
     this.categoryList.sub = this._categorySerice.getCategoryList()
     .subscribe((res: any) => {
-      
+
       this.categoryList.items = res;
       this.categoryList.loading = false;
       this.categoryList.sub.unsubscribe();
@@ -100,7 +108,7 @@ export class WriteBlogComponent implements OnInit {
   fileChangeEvent(e) {
     if( e.target.files.length > 0 ) {
       this.image = e.target.files[0];
-      
+
       const file = (e.target as HTMLInputElement).files[0];
 
       const reader = new FileReader();

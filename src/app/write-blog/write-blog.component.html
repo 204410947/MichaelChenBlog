@@ -40,6 +40,8 @@
                 <small class="text-danger" *ngIf="categoryId.touched && categoryId.invalid">
                     Fill this fiels
                 </small>
+                <input type="text" [(ngModel)]="addCategoryName" name="addCategoryText">
+                <input type="button" value="新增分類" (click)="addCategory()">
                 </div>
 
                 <div class="mb-3">

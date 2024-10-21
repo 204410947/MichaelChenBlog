@@ -22,14 +22,14 @@ export class AllBlogsComponent implements OnInit {
   }
 
   currentCategoryId: string = 'all';
-  
+
   constructor(
     private _blogService: BlogService,
     private _route: ActivatedRoute
     ) { }
-    
+
   ngOnInit(): void {
-      
+
       this._route.params.subscribe((params) => {
         if( !params.categoryId ) {
           this.currentCategoryId = 'all';
@@ -46,7 +46,7 @@ export class AllBlogsComponent implements OnInit {
 
     this.allBlogs.loading = true;
     this.allBlogs.error = null;
-    
+
     this.allBlogs.sub = this._blogService.getblogList('all', this.currentCategoryId)
     .subscribe((res:any) => {
 
@@ -59,7 +59,7 @@ export class AllBlogsComponent implements OnInit {
       this.allBlogs.sub.unsubscribe();
 
     }, err => {
-      
+
       this.allBlogs.error = err;
       this.allBlogs.loading = false;
       this.allBlogs.sub.unsubscribe();
@@ -84,7 +84,7 @@ export class AllBlogsComponent implements OnInit {
       this.allBlogs.sub.unsubscribe();
 
     }, err => {
-      
+
       this.allBlogs.error = err;
       this.allBlogs.loading = false;
       this.allBlogs.sub.unsubscribe();
