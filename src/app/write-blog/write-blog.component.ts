@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { BlogService } from '../services/blog.service';
 import { CategoryService } from '../services/category.service';
 import { UtilsService } from '../services/utils.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-write-blog',
@@ -37,14 +38,20 @@ export class WriteBlogComponent implements OnInit {
   image;
 
   addCategoryName: string = '';
+  editorContent: string = '';
 
   constructor(
     private _authService: AuthService,
     private _categorySerice: CategoryService,
     private _blogService: BlogService,
     private _router: Router,
-    private _utils: UtilsService
+    private _utils: UtilsService,
+    private sanitizer: DomSanitizer
   ) { }
+
+  get safeHtml() {
+    return this.sanitizer.bypassSecurityTrustHtml(this.editorContent);
+  }
 
   ngOnInit(): void {
     this.getCategories();

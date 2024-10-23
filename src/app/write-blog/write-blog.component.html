@@ -44,6 +44,9 @@
                 <input type="button" value="新增分類" (click)="addCategory()">
                 </div>
 
+                <quill-editor [(ngModel)]="editorContent" [style]="{height: '300px'}"></quill-editor>
+                <div [innerHTML]="safeHtml"></div>
+
                 <div class="mb-3">
                     <label class="form-label">Blog body*</label>
                     <textarea class="form-control" [class.is-invalid]="body.touched && body.invalid" style="height: 100px" required #body="ngModel" [(ngModel)]="blog.data.body" name="body"></textarea>
@@ -55,7 +58,6 @@
                   <p *ngIf="blog.error" class="text-danger">
                     {{ blog.error }}
                   </p>
-
                 <button type="submit" class="btn btn-dark me-2" [disabled]="blogForm.invalid || blog.loading">
                     {{ blog.loading ? 'Saving blog...' : 'Save blog' }}
                 </button>

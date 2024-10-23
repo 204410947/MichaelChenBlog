@@ -14,7 +14,10 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "quill": ["node_modules/quill"]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
