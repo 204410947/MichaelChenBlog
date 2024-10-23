@@ -23,7 +23,7 @@
                 </div>
               </div>
         </div>
-        
+
         <div class="col-md-7 col-12">
 
             <p *ngIf="blog.error || blog.loading">
@@ -32,7 +32,7 @@
             </p>
 
             <!-- blog -->
-            <h3> 
+            <h3>
                 {{ blog.data.title | titlecase }}
             </h3>
             <p>
@@ -43,9 +43,10 @@
                     <i class="fa fa-calendar mx-1" aria-hidden="true"></i> {{ blog.data.posted }}
                 </i>
             </p>
-            <p class="blogBody">
+            <!-- <p class="blogBody">
                 {{ blog.data.body }}
-            </p>
+            </p> -->
+            <div [innerHTML]="sanitizedHtml"></div>
 
 
             <!-- reacts -->
@@ -53,27 +54,27 @@
             <div class="react-section" *ngIf="blog.data.reacts">
                 <a class="btn reactBtn" [class.reacted]="User.hasReact == 'like'" (click)="doReact('like')">
                     <i class="fa fa-thumbs-up-o" aria-hidden="true"></i>
-                     Like 
+                     Like
                      <span class="badge bg-secondary">
                          {{ blog.data.reacts.like.length }}
                      </span>
                 </a>
                 <a class="btn reactBtn" [class.reacted]="User.hasReact == 'love'" (click)="doReact('love')">
-                    <i class="fa fa-heart-o" aria-hidden="true"></i> 
-                    Love 
+                    <i class="fa fa-heart-o" aria-hidden="true"></i>
+                    Love
                     <span class="badge bg-secondary">
                         {{ blog.data.reacts.love.length }}
                     </span>
                 </a>
                 <a class="btn reactBtn" [class.reacted]="User.hasReact == 'funny'" (click)="doReact('funny')">
-                    <i class="fa fa-smile-o" aria-hidden="true"></i> 
-                    Haha 
+                    <i class="fa fa-smile-o" aria-hidden="true"></i>
+                    Haha
                     <span class="badge bg-secondary">
                         {{ blog.data.reacts.funny.length }}
                     </span>
                 </a>
                 <a class="btn reactBtn" [class.reacted]="User.hasReact == 'sad'" (click)="doReact('sad')">
-                    <i class="fa fa-frown-o" aria-hidden="true"></i> 
+                    <i class="fa fa-frown-o" aria-hidden="true"></i>
                     Sad
                     <span class="badge bg-secondary">
                         {{ blog.data.reacts.sad.length }}
@@ -81,14 +82,14 @@
                 </a>
                 <a class="btn reactBtn" [class.reacted]="User.hasReact == 'informative'" (click)="doReact('informative')">
                     <i class="fa fa-lightbulb-o" aria-hidden="true"></i>
-                    Informative 
+                    Informative
                     <span class="badge bg-secondary">
                         {{ blog.data.reacts.informative.length }}
                     </span>
                 </a>
             </div>
             <hr>
-            
+
             <!-- write comment -->
             <form class="row g-3 mb-3" #commentForm="ngForm" (ngSubmit)="doComment(commentForm)" *ngIf="User.data">
                 <div class="col-md-10 col-8">
@@ -119,7 +120,7 @@
                 </div>
 
                 <div class="col-md-10 col-9">
-                    <h3> <i class="fa fa-comment me-1" aria-hidden="true"></i> 
+                    <h3> <i class="fa fa-comment me-1" aria-hidden="true"></i>
                     <b>
                         {{ comment.people.first_name }} {{ comment.people.last_name }}
                     </b>

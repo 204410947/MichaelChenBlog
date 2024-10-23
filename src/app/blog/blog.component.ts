@@ -7,6 +7,7 @@ import { PostReact } from '../interfaces/post-react';
 import { UserProfile } from '../interfaces/user-profile';
 import { AuthService } from '../services/auth.service';
 import { BlogService } from '../services/blog.service';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-blog',
@@ -57,10 +58,13 @@ export class BlogComponent implements OnInit, OnDestroy {
     }
   }
 
+  sanitizedHtml: SafeHtml;
+
   constructor(
     private _authService: AuthService,
     private _route: ActivatedRoute,
-    private _blogService: BlogService
+    private _blogService: BlogService,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +75,10 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.blog.blogId = this._route.snapshot.paramMap.get('blogId');
     this.getBlogDetails(this.blog.blogId);
 
+  }
+
+  sanitizeHtml(html: string): SafeHtml {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   ngOnDestroy() {
@@ -103,6 +111,10 @@ export class BlogComponent implements OnInit, OnDestroy {
       this.blog.loading = false;
       this.checkHasReact();
       this.blog.sub.unsubscribe();
+      this.sanitizedHtml = this.sanitizeHtml(this.blog.data.body);
+
+      console.log(this.blog.data.body);
+
 
     }, err => {
       this.blog.error = err;
@@ -116,10 +128,10 @@ export class BlogComponent implements OnInit, OnDestroy {
     this.postComment.error = null;
     this.postComment.loading = true;
     this.postComment.success = false;
-    
+
     this.postComment.sub = this._blogService.postComment(this.postComment.body)
     .subscribe((res:any) => {
-      
+
       this.blog.data.comments = res.comments;
       commentForm.resetForm();
       this.postComment.error = null;

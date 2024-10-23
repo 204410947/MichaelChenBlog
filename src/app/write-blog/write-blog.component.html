@@ -44,16 +44,22 @@
                 <input type="button" value="新增分類" (click)="addCategory()">
                 </div>
 
-                <!-- <quill-editor [(ngModel)]="editorContent" [style]="{height: '300px'}"></quill-editor> -->
-                <div [innerHTML]="safeHtml"></div>
-
                 <div class="mb-3">
+                  <label class="form-label">Blog body*</label>
+                  <quill-editor [class.is-invalid]="body.touched && body.invalid" required #body="ngModel" [(ngModel)]="blog.data.body" [style]="{height: '300px'}" name="body"></quill-editor>
+                  <small class="text-danger" *ngIf="body.touched && body.invalid">
+                    Fill this fiels
+                  </small>
+                  <div [innerHTML]="safeHtml"></div>
+                </div>
+
+                <!-- <div class="mb-3">
                     <label class="form-label">Blog body*</label>
                     <textarea class="form-control" [class.is-invalid]="body.touched && body.invalid" style="height: 100px" required #body="ngModel" [(ngModel)]="blog.data.body" name="body"></textarea>
                     <small class="text-danger" *ngIf="body.touched && body.invalid">
                         Fill this fiels
                     </small>
-                  </div>
+                  </div> -->
 
                   <p *ngIf="blog.error" class="text-danger">
                     {{ blog.error }}
