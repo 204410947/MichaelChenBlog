@@ -17,7 +17,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { SignupComponent } from './signup/signup.component';
 import { WriteBlogComponent } from './write-blog/write-blog.component';
-import { QuillModule } from 'ngx-quill'
+// import { QuillModule } from 'ngx-quill'
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import { QuillModule } from 'ngx-quill'
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    QuillModule.forRoot(),
+    // QuillModule.forRoot(),
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS,

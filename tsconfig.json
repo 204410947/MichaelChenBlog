@@ -16,7 +16,7 @@
       "dom"
     ],
     "paths": {
-      "quill": ["node_modules/quill"]
+      // "quill": ["node_modules/quill"]
     }
   },
   "angularCompilerOptions": {
